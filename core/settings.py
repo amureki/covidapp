@@ -81,7 +81,7 @@ class Common(Configuration):
     TEMPLATES = [
         {
             "BACKEND": "django.template.backends.django.DjangoTemplates",
-            'DIRS': [os.path.join(PROJECT_ROOT, 'templates')],
+            "DIRS": [os.path.join(PROJECT_ROOT, "templates")],
             "APP_DIRS": True,
             "OPTIONS": {
                 "context_processors": [
@@ -113,6 +113,8 @@ class Common(Configuration):
         {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
         {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
     ]
+
+    INDEX_PAGE_CACHE_TTL_SECONDS = values.IntegerValue(default=60 * 60)
 
 
 class Development(Common):
