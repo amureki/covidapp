@@ -1,3 +1,4 @@
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,13 +33,12 @@
 <body>
 <div>
   <h1>COVID-19 cases</h1>
-  Confirmed: {{ confirmed }}
+  Confirmed: {{ confirmed|intcomma|intword }}
   <br/>
-  Deaths: {{ deaths }}
+  Deaths: {{ deaths|intcomma|intword }}
   <br/>
-  Recovered: {{ recovered }}
+  Recovered: {{ recovered|intcomma|intword }}
 </div>
-{#<footer class="footer">(c) amureki</footer>#}
 <footer>Based on <a href="https://systems.jhu.edu/research/public-health/ncov/" target="_blank">Johns Hopkins CSSE
   data</a></footer>
 </body>

@@ -47,6 +47,7 @@ class Common(Configuration):
         "django.contrib.messages",
         "django.contrib.postgres",
         "django.contrib.staticfiles",
+        "django.contrib.humanize",
         "django_extensions",
         "data",
     ]
