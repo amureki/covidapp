@@ -115,7 +115,9 @@ class Common(Configuration):
         {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
     ]
 
-    INDEX_PAGE_CACHE_TTL_SECONDS = values.IntegerValue(default=60 * 60)
+    INDEX_PAGE_CACHE_TTL_SECONDS = values.IntegerValue(
+        environ_prefix="", default=60 * 60
+    )
 
 
 class Development(Common):
