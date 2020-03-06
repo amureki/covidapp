@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "covid19"
+version = "0.1.0"
+description = ""
+authors = ["Rustem Saiargaliev <hi@amureki.me>"]
+license = "Apache License 2.0"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+django = "^3.0"
+django-configurations = "^2.2"
+django-environ = "^0.4.5"
+django-extensions = "^2.2.5"
+psycopg2-binary = "^2.8.4"
+sentry-sdk = "^0.13.5"
+waitress = "^1.4.2"
+whitenoise = "^5.0.1"
+django-redis = "^4.11.0"
+httpx = "^0.11.1"
+
+[tool.poetry.dev-dependencies]
+black = "^19.10b0"
+flake8 = "^3.7.9"
+isort = "^4.3.21"
+pydocstyle = "^5.0.1"
+pytest = "^5.3.2"
+pytest-cov = "^2.8.1"
+pytest-django = "^3.7.0"
+pre-commit = "^2.1.1"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
