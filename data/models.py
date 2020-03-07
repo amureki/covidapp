@@ -1,5 +1,6 @@
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+from django.utils.text import slugify
 from django_extensions.db.models import TimeStampedModel
 
 
@@ -21,6 +22,7 @@ class Summary(TimeStampedModel):
         self.countries_data = [
             {
                 "region": country["attributes"]["Country_Region"],
+                "region_slug": slugify(country["attributes"]["Country_Region"]),
                 "confirmed": country["attributes"]["Confirmed"],
                 "deaths": country["attributes"]["Deaths"],
                 "recovered": country["attributes"]["Recovered"],
