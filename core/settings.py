@@ -50,6 +50,7 @@ class Common(Configuration):
         "django.contrib.humanize",
         "django_extensions",
         "rest_framework",
+        "drf_yasg",
         "data",
     ]
 
