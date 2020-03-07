@@ -6,7 +6,7 @@ from django.views.generic import TemplateView, ListView
 from data.models import Summary
 
 
-@method_decorator(cache_page(settings.INDEX_PAGE_CACHE_TTL_SECONDS), name="dispatch")
+@method_decorator(cache_page(settings.CACHE_TTL_SECONDS), name="dispatch")
 class IndexPageView(TemplateView):
     template_name = "index.html"
 

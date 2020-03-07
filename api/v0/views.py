@@ -1,5 +1,8 @@
+from django.conf import settings
 from django.http import Http404
+from django.utils.decorators import method_decorator
 from django.utils.text import slugify
+from django.views.decorators.cache import cache_page
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
@@ -15,6 +18,11 @@ class SummaryViewSet(ListModelMixin, GenericViewSet):
     serializer_class = SummarySerializer
     pagination_class = CustomPageNumberPagination
 
+    @method_decorator(cache_page(settings.CACHE_TTL_SECONDS))
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @method_decorator(cache_page(settings.CACHE_TTL_SECONDS))
     @action(detail=False)
     def latest(self, request):
         latest_summary = Summary.objects.first()
@@ -26,6 +34,7 @@ class SummaryViewSet(ListModelMixin, GenericViewSet):
 class CountryViewSet(GenericViewSet):
     queryset = Summary.objects.all()
 
+    @method_decorator(cache_page(settings.CACHE_TTL_SECONDS))
     def list(self, request, *args, **kwargs):
         latest_summary = Summary.objects.first()
         countries = [item["region"] for item in latest_summary.countries_data]
@@ -38,6 +47,7 @@ class CountrySummaryViewSet(GenericViewSet):
     serializer_class = None
     lookup_field = "slug"
 
+    @method_decorator(cache_page(settings.CACHE_TTL_SECONDS))
     def retrieve(self, request, *args, **kwargs):
         latest_summary = Summary.objects.first()
         slug = self.kwargs.get("slug").lower()

@@ -117,9 +117,7 @@ class Common(Configuration):
         {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
     ]
 
-    INDEX_PAGE_CACHE_TTL_SECONDS = values.IntegerValue(
-        environ_prefix="", default=60 * 60
-    )
+    CACHE_TTL_SECONDS = values.IntegerValue(environ_prefix="", default=60 * 60)
 
     REST_FRAMEWORK = {
         "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
