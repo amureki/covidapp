@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+  <h1>COVID-19 cases</h1>
+
+  {% if summary %}
+    <p>
+      Confirmed: {{ summary.confirmed|intcomma|intword }}
+      <br/>
+      Deaths: {{ summary.deaths|intcomma|intword }}
+      <br/>
+      Recovered: {{ summary.recovered|intcomma|intword }}
+    </p>
+  {% else %}
+    <p>No data to show</p>
+  {% endif %}
+{% endblock content %}

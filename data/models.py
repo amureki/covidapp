@@ -7,7 +7,8 @@ class Summary(TimeStampedModel):
     confirmed = models.IntegerField()
     deaths = models.IntegerField()
     recovered = models.IntegerField()
-    original_data = JSONField()
+    raw_data = JSONField()
+    countries_data = JSONField(default=[])
 
     class Meta:
         verbose_name_plural = "Summaries"
@@ -16,14 +17,24 @@ class Summary(TimeStampedModel):
     def __str__(self):
         return f"Summary from {self.created}"
 
+    def save(self, **kwargs):
+        self.countries_data = [
+            {
+                "region": country["attributes"]["Country_Region"],
+                "confirmed": country["attributes"]["Confirmed"],
+                "deaths": country["attributes"]["Deaths"],
+                "recovered": country["attributes"]["Recovered"],
+                "lat": country["attributes"]["Lat"],
+                "long": country["attributes"]["Long_"],
+                "updated": int(str(country["attributes"]["Last_Update"])[:-3]),
+            }
+            for country in self.raw_data
+        ]
+        super().save(**kwargs)
+
     def get_summary_data(self):
         return {
             "confirmed": self.confirmed,
             "deaths": self.deaths,
             "recovered": self.recovered,
         }
-
-    @classmethod
-    def create_from_data(cls, data):
-        data["original_data"] = data.copy()
-        return Summary.objects.create(**data)
