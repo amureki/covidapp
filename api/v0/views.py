@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.utils.text import slugify
 from rest_framework.decorators import action
 from rest_framework.mixins import ListModelMixin
@@ -39,7 +40,7 @@ class CountrySummaryViewSet(GenericViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         latest_summary = Summary.objects.first()
-        slug = self.kwargs.get("slug")
+        slug = self.kwargs.get("slug").lower()
         country_data = next(
             (
                 item
@@ -48,5 +49,8 @@ class CountrySummaryViewSet(GenericViewSet):
             ),
             None,
         )
+        if not country_data:
+            raise Http404
+
         country_data["created"] = latest_summary.created
         return Response(country_data)
