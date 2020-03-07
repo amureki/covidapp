@@ -20,7 +20,7 @@
             <th scope="row">{{ country.region }}</th>
             <td>{{ country.confirmed|intcomma|intword }}</td>
             <td>{{ country.deaths|intcomma|intword }}</td>
-            <td>{{ country.recovered|intcomma|intword }}</td>
+            <td>{{ country.recovered|intcomma|intword }} ({% widthratio country.recovered country.confirmed 100 %}%)</td>
           </tr>
         {% endfor %}
         </tbody>

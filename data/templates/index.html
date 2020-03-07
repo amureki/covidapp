@@ -10,7 +10,7 @@
       <br/>
       Deaths: {{ summary.deaths|intcomma|intword }}
       <br/>
-      Recovered: {{ summary.recovered|intcomma|intword }}
+      Recovered: {{ summary.recovered|intcomma|intword }} ({% widthratio summary.recovered summary.confirmed 100 %}%)
     </p>
   {% else %}
     <p>No data to show</p>
