@@ -5,7 +5,7 @@ STATS_URL_TEMPLATE = "https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/
 
 def parse_data():
     stats = {}
-    for stat in ["Confirmed", "Deaths", "Recovered"]:
+    for stat in ["confirmed", "deaths", "recovered"]:
         out_statistics = (
             '[{"statisticType":"sum","onStatisticField":"%s","outStatisticFieldName":"value"}]'
             % stat

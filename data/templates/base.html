@@ -50,11 +50,18 @@
 <body>
 <div>
   <h1>COVID-19 cases</h1>
-  Confirmed: {{ confirmed|intcomma|intword }}
-  <br/>
-  Deaths: {{ deaths|intcomma|intword }}
-  <br/>
-  Recovered: {{ recovered|intcomma|intword }}
+
+  {% if summary %}
+    <p>
+      Confirmed: {{ summary.confirmed|intcomma|intword }}
+      <br/>
+      Deaths: {{ summary.deaths|intcomma|intword }}
+      <br/>
+      Recovered: {{ summary.recovered|intcomma|intword }}
+    </p>
+  {% else %}
+    <p>No data to show</p>
+  {% endif %}
 </div>
 <footer>Based on <a href="https://systems.jhu.edu/research/public-health/ncov/" target="_blank">Johns Hopkins CSSE
   data</a></footer>
