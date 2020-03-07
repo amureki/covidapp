@@ -8,7 +8,7 @@ class Summary(TimeStampedModel):
     deaths = models.IntegerField()
     recovered = models.IntegerField()
     raw_data = JSONField()
-    countries_data = JSONField(default=[])
+    countries_data = JSONField(default=list)
 
     class Meta:
         verbose_name_plural = "Summaries"

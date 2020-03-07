@@ -6,4 +6,4 @@ from data.models import Summary
 class SummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Summary
-        fields = ["created", "confirmed", "deaths", "recovered"]
+        fields = ["created", "confirmed", "deaths", "recovered", "countries_data"]
