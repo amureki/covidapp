@@ -17,8 +17,6 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Covidapp API",
         default_version="v0",
-        # description="Test description",
-        # terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="hi@amureki.me"),
         license=openapi.License(name="Apache License 2.0"),
     ),
