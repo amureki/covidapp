@@ -12,5 +12,5 @@ class IndexPageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["summary"] = Summary.objects.order_by("created").last()
+        context["summary"] = Summary.objects.first()
         return context

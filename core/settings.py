@@ -49,6 +49,7 @@ class Common(Configuration):
         "django.contrib.staticfiles",
         "django.contrib.humanize",
         "django_extensions",
+        "rest_framework",
         "data",
     ]
 
@@ -119,10 +120,22 @@ class Common(Configuration):
         environ_prefix="", default=60 * 60
     )
 
+    REST_FRAMEWORK = {
+        "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
+        "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+    }
+
 
 class Development(Common):
     DEBUG = True
     SECRET_KEY = "secret_key"
+
+    REST_FRAMEWORK = {
+        "DEFAULT_RENDERER_CLASSES": (
+            "rest_framework.renderers.JSONRenderer",
+            "rest_framework.renderers.BrowsableAPIRenderer",
+        ),
+    }
 
 
 class Test(Common):

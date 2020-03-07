@@ -9,6 +9,10 @@ class Summary(TimeStampedModel):
     recovered = models.IntegerField()
     original_data = JSONField()
 
+    class Meta:
+        verbose_name_plural = "Summaries"
+        ordering = ["-created"]
+
     def __str__(self):
         return f"Summary from {self.created}"
 
