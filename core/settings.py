@@ -157,7 +157,10 @@ class Production(Common):
     SECURE_SSL_REDIRECT = True
     SECURE_HSTS_SECONDS = values.IntegerValue(environ_prefix="", default=3600)
 
-    MIDDLEWARE = ["django.middleware.gzip.GZipMiddleware",] + Common.MIDDLEWARE
+    MIDDLEWARE = [
+        "django.middleware.http.ConditionalGetMiddleware",
+        "django.middleware.gzip.GZipMiddleware",
+    ] + Common.MIDDLEWARE
 
     SENTRY_CONFIG = {
         "dsn": os.getenv("SENTRY_DSN", ""),
