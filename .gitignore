@@ -27,6 +27,7 @@ nosetests.xml
 *.mo
 
 
+static
 _static
 _media
 

@@ -31,6 +31,9 @@ class Common(Configuration):
         "default": env.cache("CACHE_URL", "redis://127.0.0.1:6379/0"),
         "sessions": env.cache("SESSIONS_URL", "redis://127.0.0.1:6379/1"),
     }
+    CACHE_MIDDLEWARE_SECONDS = values.IntegerValue(
+        environ_prefix="", default=60 * 60 * 24
+    )
 
     DATABASES = {
         "default": env.db(default="postgres://localhost/covid19?conn_max_age=600"),
@@ -58,6 +61,7 @@ class Common(Configuration):
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
+        "django.middleware.cache.UpdateCacheMiddleware",
         "whitenoise.middleware.WhiteNoiseMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.common.CommonMiddleware",
@@ -65,6 +69,7 @@ class Common(Configuration):
         "django.contrib.auth.middleware.AuthenticationMiddleware",
         "django.contrib.messages.middleware.MessageMiddleware",
         "django.middleware.clickjacking.XFrameOptionsMiddleware",
+        "django.middleware.cache.FetchFromCacheMiddleware",
     ]
 
     ROOT_URLCONF = "core.urls"
@@ -116,8 +121,6 @@ class Common(Configuration):
         {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
         {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
     ]
-
-    CACHE_TTL_SECONDS = values.IntegerValue(environ_prefix="", default=60 * 60)
 
     REST_FRAMEWORK = {
         "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
