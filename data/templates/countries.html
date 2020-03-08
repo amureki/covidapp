@@ -3,38 +3,36 @@
 
 {% block content %}
   <h1 class="title has-text-centered">Country statistics</h1>
+
   {% if countries %}
-    <div class="table-wrapper">
-      <table class="table is-striped is-hoverable is-fullwidth is-narrow">
-        <thead>
+    <table class="table is-striped is-hoverable is-fullwidth">
+      <thead>
+      <tr>
+        <th scope="col">Country</th>
+        <th scope="col">Confirmed</th>
+        <th scope="col">Deaths</th>
+        <th scope="col">Recovered</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for country in countries %}
         <tr>
-          <th scope="col">Country</th>
-          <th scope="col">Confirmed</th>
-          <th scope="col">Deaths</th>
-          <th scope="col">Recovered</th>
+          <th scope="row">{{ country.region }}</th>
+          <td>{{ country.confirmed|intcomma|intword }}</td>
+          <td>{{ country.deaths|intcomma|intword }}</td>
+          <td>{{ country.recovered|intcomma|intword }} ({% widthratio country.recovered country.confirmed 100 %}%)</td>
         </tr>
-        </thead>
-        <tbody>
-        {% for country in countries %}
-          <tr>
-            <th scope="row">{{ country.region }}</th>
-            <td>{{ country.confirmed|intcomma|intword }}</td>
-            <td>{{ country.deaths|intcomma|intword }}</td>
-            <td>{{ country.recovered|intcomma|intword }} ({% widthratio country.recovered country.confirmed 100 %}%)
-            </td>
-          </tr>
-        {% endfor %}
-        </tbody>
-        <tfoot>
-        <tr>
-          <th>Country</th>
-          <th>Confirmed</th>
-          <th>Deaths</th>
-          <th>Recovered</th>
-        </tr>
-        </tfoot>
-      </table>
-    </div>
+      {% endfor %}
+      </tbody>
+      <tfoot>
+      <tr>
+        <th>Country</th>
+        <th>Confirmed</th>
+        <th>Deaths</th>
+        <th>Recovered</th>
+      </tr>
+      </tfoot>
+    </table>
     <nav class="pagination is-centered" role="navigation" aria-label="pagination">
       {% if page_obj.has_previous %}
         <a href="?page={{ page_obj.previous_page_number }}" class="pagination-previous">Previous</a>
