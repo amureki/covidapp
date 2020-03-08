@@ -61,8 +61,8 @@ class Common(Configuration):
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
-        "django.middleware.cache.UpdateCacheMiddleware",
         "whitenoise.middleware.WhiteNoiseMiddleware",
+        "django.middleware.cache.UpdateCacheMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
