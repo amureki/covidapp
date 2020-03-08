@@ -2,17 +2,32 @@
 {% load humanize %}
 
 {% block content %}
-  <h1>COVID-19 cases</h1>
-
+  <h1 class="title has-text-centered">COVID-19 cases</h1>
   {% if summary %}
-    <p>
-      Confirmed: {{ summary.confirmed|intcomma|intword }}
-      <br/>
-      Deaths: {{ summary.deaths|intcomma|intword }}
-      <br/>
-      Recovered: {{ summary.recovered|intcomma|intword }} ({% widthratio summary.recovered summary.confirmed 100 %}%)
-    </p>
+    <nav class="level">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Confirmed</p>
+          <p class="title">{{ summary.confirmed|intcomma|intword }}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Deaths</p>
+          <p class="title">{{ summary.deaths|intcomma|intword }}</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Recovered</p>
+          <p class="title">{{ summary.recovered|intcomma|intword }}
+            ({% widthratio summary.recovered summary.confirmed 100 %}%)</p>
+        </div>
+      </div>
+    </nav>
   {% else %}
-    <p>No data to show</p>
+    <div class="content has-text-centered">
+      <p>No data to display.</p>
+    </div>
   {% endif %}
 {% endblock content %}
