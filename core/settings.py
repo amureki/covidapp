@@ -155,6 +155,7 @@ class Production(Common):
     SESSION_COOKIE_SECURE = True
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
     SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = values.IntegerValue(environ_prefix="", default=3600)
 
     MIDDLEWARE = [
         "django.middleware.http.ConditionalGetMiddleware",

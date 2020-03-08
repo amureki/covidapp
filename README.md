@@ -1,6 +1,6 @@
 # covid19
 
-Simple tracker based on [Johns Hopkins CSSE](https://systems.jhu.edu/research/public-health/ncov/) data.
+Simple COVID-19 tracker based on [Johns Hopkins CSSE](https://systems.jhu.edu/research/public-health/ncov/) data.
 
 ## Links
 

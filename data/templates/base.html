@@ -2,9 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <title>COVID-19 cases</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>COVID-19 cases</title>
+  <meta name="description" content="Simple COVID-19 tracker based on Johns Hopkins CSSE data." />
+  <meta name="theme-color" content="#d9d9d9"/>
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
   <link rel="stylesheet" href="{% static "css/bulma.min.css" %}">
   <style>
@@ -46,7 +48,7 @@
   </style>
 </head>
 <body>
-<a href="https://github.com/amureki/covidapp" target="_blank" class="github-corner" aria-label="View source on GitHub">
+<a href="https://github.com/amureki/covidapp" rel="noopener" target="_blank" class="github-corner" aria-label="View source on GitHub">
   <svg width="80" height="80" viewBox="0 0 250 250"
        style="fill:#151513; color:hsl(0, 0%, 100%); position: absolute; top: 0; border: 0; right: 0;"
        aria-hidden="true">
@@ -85,7 +87,7 @@
   <div class="container">
     <div class="content has-text-centered">
       <p>
-        Based on <a href="https://systems.jhu.edu/research/public-health/ncov/" target="_blank">Johns Hopkins CSSE </a>data.
+        Based on <a href="https://systems.jhu.edu/research/public-health/ncov/" rel="noopener" target="_blank">Johns Hopkins CSSE </a>data.
         {% if summary %}Last update: {{ summary.created }} {% endif %}
         <br/>
         Check out <a href="https://docs.google.com/document/d/1vumYWoiV7NlVoc27rMQvmVkVu5cOAbnaW_RKkq2RMaQ/edit">how
