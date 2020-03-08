@@ -27,7 +27,6 @@ nosetests.xml
 *.mo
 
 
-static
 _static
 _media
 
@@ -39,9 +38,6 @@ env
 # py.test cache
 .cache
 .pytest_cache/
-
-# debuging maps
-*.map
 
 # dumps
 latest.dump

@@ -82,11 +82,9 @@ class Common(Configuration):
     SITE_ID = 1
     SITE_URL = env("SITE_URL", default="https://covidapp.herokuapp.com/")
 
-    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    STATIC_ROOT = os.path.join(BASE_DIR, "_static")
     STATIC_URL = "/static/"
-    STATICFILES_STORAGE = (
-        "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
-    )
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
     TEMPLATES = [
         {
