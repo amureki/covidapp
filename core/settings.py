@@ -15,7 +15,7 @@ env = environ.Env()
 _release = heroku.RELEASE[1:]
 _commit = heroku.COMMIT[:8]
 _environment = (
-    heroku.APP_NAME.replace("covid19", "")[1:] or "production"
+    heroku.APP_NAME.replace("covidapp", "")[1:] or "production"
     if heroku.APP_NAME
     else "dev"
 )
@@ -36,7 +36,7 @@ class Common(Configuration):
     )
 
     DATABASES = {
-        "default": env.db(default="postgres://localhost/covid19?conn_max_age=600"),
+        "default": env.db(default="postgres://localhost/covidapp?conn_max_age=600"),
     }
 
     DEBUG = False
