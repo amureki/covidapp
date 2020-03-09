@@ -53,6 +53,7 @@ class Common(Configuration):
         "django.contrib.humanize",
         "django_extensions",
         "rest_framework",
+        "corsheaders",
         "drf_yasg",
         "data",
     ]
@@ -61,6 +62,7 @@ class Common(Configuration):
 
     MIDDLEWARE = [
         "django.middleware.security.SecurityMiddleware",
+        "corsheaders.middleware.CorsMiddleware",
         "whitenoise.middleware.WhiteNoiseMiddleware",
         "django.middleware.cache.UpdateCacheMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
@@ -121,6 +123,9 @@ class Common(Configuration):
         {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
         {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
     ]
+
+    CORS_ORIGIN_ALLOW_ALL = True
+    CORS_URLS_REGEX = r"^/api/.*$"
 
     REST_FRAMEWORK = {
         "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
