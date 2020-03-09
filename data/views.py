@@ -25,5 +25,5 @@ class CountriesListView(LatestSummaryMixin, ListView):
     def get_queryset(self):
         summary = self.get_summary()
         if summary:
-            return summary.countries_data
+            return summary.regions_data
         return []

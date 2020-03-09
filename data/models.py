@@ -5,11 +5,11 @@ from django_extensions.db.models import TimeStampedModel
 
 
 class Summary(TimeStampedModel):
-    confirmed = models.IntegerField()
-    deaths = models.IntegerField()
-    recovered = models.IntegerField()
+    confirmed = models.PositiveIntegerField()
+    deaths = models.PositiveIntegerField()
+    recovered = models.PositiveIntegerField()
     raw_data = JSONField()
-    countries_data = JSONField(default=list)
+    regions_data = JSONField(default=list)
 
     class Meta:
         verbose_name_plural = "Summaries"
@@ -19,18 +19,18 @@ class Summary(TimeStampedModel):
         return f"Summary from {self.created}"
 
     def save(self, **kwargs):
-        self.countries_data = [
+        self.regions_data = [
             {
-                "region": country["attributes"]["Country_Region"],
-                "region_slug": slugify(country["attributes"]["Country_Region"]),
-                "confirmed": country["attributes"]["Confirmed"],
-                "deaths": country["attributes"]["Deaths"],
-                "recovered": country["attributes"]["Recovered"],
-                "lat": country["attributes"]["Lat"],
-                "long": country["attributes"]["Long_"],
-                "updated": int(str(country["attributes"]["Last_Update"])[:-3]),
+                "region": region["attributes"]["Country_Region"],
+                "region_slug": slugify(region["attributes"]["Country_Region"]),
+                "confirmed": region["attributes"]["Confirmed"],
+                "deaths": region["attributes"]["Deaths"],
+                "recovered": region["attributes"]["Recovered"],
+                "lat": region["attributes"]["Lat"],
+                "long": region["attributes"]["Long_"],
+                "updated": int(str(region["attributes"]["Last_Update"])[:-3]),
             }
-            for country in self.raw_data
+            for region in self.raw_data
         ]
         super().save(**kwargs)
 

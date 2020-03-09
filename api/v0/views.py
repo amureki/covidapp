@@ -31,7 +31,7 @@ class CountryViewSet(GenericViewSet):
 
     def list(self, request, *args, **kwargs):
         latest_summary = Summary.objects.first()
-        countries = [item["region"] for item in latest_summary.countries_data]
+        countries = [item["region"] for item in latest_summary.regions_data]
         countries_data = {slugify(country): country for country in countries}
         return Response(countries_data)
 
@@ -47,7 +47,7 @@ class CountrySummaryViewSet(GenericViewSet):
         country_data = next(
             (
                 item
-                for item in latest_summary.countries_data
+                for item in latest_summary.regions_data
                 if item["region_slug"] == slug
             ),
             None,
