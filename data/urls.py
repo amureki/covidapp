@@ -1,8 +1,9 @@
 from django.urls import path
 
-from data.views import IndexPageView, CountriesListView
+from data.views import IndexPageView, RegionsListView, RegionDetailView
 
 urlpatterns = [
     path("", IndexPageView.as_view(), name="index"),
-    path("countries/", CountriesListView.as_view(), name="countries"),
+    path("regions/", RegionsListView.as_view(), name="regions"),
+    path("region/<slug:region>/", RegionDetailView.as_view(), name="region"),
 ]

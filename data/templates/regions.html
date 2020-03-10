@@ -2,35 +2,35 @@
 {% load humanize %}
 
 {% block content %}
-  <h1 class="title has-text-centered">Country statistics</h1>
+  <h1 class="title has-text-centered">Region statistics</h1>
 
-  {% if countries %}
+  {% if regions %}
     <div class="table-container">
       <table class="table is-striped is-hoverable is-fullwidth">
         <thead>
         <tr>
-          <th scope="col">Country</th>
+          <th scope="col">Region</th>
           <th scope="col">Confirmed</th>
           <th scope="col">Recovered</th>
           <th scope="col">Deaths</th>
         </tr>
         </thead>
         <tbody>
-        {% for country in countries %}
+        {% for region in regions %}
           <tr>
-            <th scope="row">{{ country.region }}</th>
-            <td>{{ country.confirmed|intcomma|intword }}</td>
-            <td>{{ country.recovered|intcomma|intword }}
-              <span class="has-text-weight-light">({% widthratio country.recovered country.confirmed 100 %}%)
+            <th scope="row"><a href="{% url 'region' region.region_slug %}">{{ region.region }}</a></th>
+            <td>{{ region.confirmed|intcomma|intword }}</td>
+            <td>{{ region.recovered|intcomma|intword }}
+              <span class="has-text-weight-light">({% widthratio region.recovered region.confirmed 100 %}%)
               </span>
             </td>
-            <td class="has-text-grey-light">{{ country.deaths|intcomma|intword }}</td>
+            <td class="has-text-grey-light">{{ region.deaths|intcomma|intword }}</td>
           </tr>
         {% endfor %}
         </tbody>
         <tfoot>
         <tr>
-          <th>Country</th>
+          <th>Region</th>
           <th>Confirmed</th>
           <th>Deaths</th>
           <th>Recovered</th>

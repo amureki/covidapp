@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.utils.text import slugify
@@ -40,3 +42,15 @@ class Summary(TimeStampedModel):
             "deaths": self.deaths,
             "recovered": self.recovered,
         }
+
+
+class Region:
+    def __init__(self, data):
+        self.region = data.get("region")
+        self.region_slug = data.get("region_slug")
+        self.lat = data.get("lat")
+        self.long = data.get("long")
+        self.confirmed = data.get("confirmed")
+        self.deaths = data.get("deaths")
+        self.recovered = data.get("recovered")
+        self.updated = datetime.utcfromtimestamp(data.get("updated"))
