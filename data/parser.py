@@ -12,7 +12,7 @@ def parse_summary_data():
             % stat
         )
         url = STATS_URL_TEMPLATE.format(out_statistics=out_statistics)
-        response = httpx.post(url)
+        response = httpx.post(url, timeout=25.0)
         response.raise_for_status()
         raw_data = response.json()
         value = raw_data["features"][0]["attributes"]["value"]
@@ -21,7 +21,7 @@ def parse_summary_data():
 
 
 def parse_per_region_data():
-    response = httpx.post(STATS_PER_REGION_URL)
+    response = httpx.post(STATS_PER_REGION_URL, timeout=25.0)
     response.raise_for_status()
     raw_data = response.json()
     regions_raw_data = raw_data["features"]
