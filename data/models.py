@@ -43,6 +43,9 @@ class Summary(TimeStampedModel):
             "recovered": self.recovered,
         }
 
+    def get_regions_data(self):
+        return [Region(data) for data in self.regions_data]
+
 
 class Region:
     def __init__(self, data):

@@ -9,6 +9,7 @@ from api.v0.urls import router as v0_router
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/v0/", include(v0_router.urls), name="v0"),
+    path("api/v1/", include("api.v1.urls"), name="v1"),
     path("", include("data.urls")),
 ]
 
