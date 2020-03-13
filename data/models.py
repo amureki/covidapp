@@ -1,8 +1,9 @@
 from datetime import datetime
 
 from django.contrib.postgres.fields import JSONField
-from django.db import models
+from django.db import models, transaction
 from django.utils.text import slugify
+from django.utils.timezone import now
 from django_extensions.db.models import TimeStampedModel
 
 
@@ -12,6 +13,7 @@ class Summary(TimeStampedModel):
     recovered = models.PositiveIntegerField()
     raw_data = JSONField()
     regions_data = JSONField(default=list)
+    is_latest_for_day = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "Summaries"
@@ -20,7 +22,13 @@ class Summary(TimeStampedModel):
     def __str__(self):
         return f"Summary from {self.created}"
 
+    @transaction.atomic
     def save(self, **kwargs):
+        self.set_regions_data()
+        self.set_latest_for_day()
+        super().save(**kwargs)
+
+    def set_regions_data(self):
         self.regions_data = [
             {
                 "region": region["attributes"]["Country_Region"],
@@ -34,7 +42,15 @@ class Summary(TimeStampedModel):
             }
             for region in self.raw_data
         ]
-        super().save(**kwargs)
+        return self.regions_data
+
+    def set_latest_for_day(self):
+        date_start = now().replace(hour=0, minute=0)
+        date_end = now().replace(hour=23, minute=59)
+        Summary.objects.filter(created__range=[date_start, date_end]).update(
+            is_latest_for_day=False
+        )
+        self.is_latest_for_day = True
 
     def get_summary_data(self):
         return {
