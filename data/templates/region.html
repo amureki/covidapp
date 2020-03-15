@@ -25,9 +25,9 @@
         <div>
           <p class="heading">Deaths</p>
           <p class="title has-text-grey-light">
-            {{ summary.deaths|intcomma|intword }}
+            {{ region.deaths|intcomma|intword }}
             <span class="has-text-grey-light">
-              ({% widthratio summary.deaths summary.confirmed 100 %}%)
+              ({% widthratio region.deaths region.confirmed 100 %}%)
             </span>
           </p>
         </div>
