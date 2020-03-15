@@ -18,17 +18,24 @@
             <span class="has-text-grey-dark">
               ({% widthratio region.recovered region.confirmed 100 %}%)
             </span>
-        </p>
+          </p>
         </div>
       </div>
       <div class="level-item has-text-centered">
         <div>
           <p class="heading">Deaths</p>
-          <p class="title has-text-grey-light">{{ region.deaths|intcomma|intword }}</p>
+          <p class="title has-text-grey-light">
+            {{ summary.deaths|intcomma|intword }}
+            <span class="has-text-grey-light">
+              ({% widthratio summary.deaths summary.confirmed 100 %}%)
+            </span>
+          </p>
         </div>
       </div>
     </nav>
-    <progress class="progress is-success" value="{{ region.recovered }}" max="{{ region.confirmed }}">{% widthratio region.recovered region.confirmed 100 %}%</progress>
+    <progress class="progress is-success" value="{{ region.recovered }}"
+              max="{{ region.confirmed }}">{% widthratio region.recovered region.confirmed 100 %}%
+    </progress>
 
   {% else %}
     <div class="content has-text-centered">

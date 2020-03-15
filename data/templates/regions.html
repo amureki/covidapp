@@ -24,7 +24,10 @@
               <span class="has-text-weight-light">({% widthratio region.recovered region.confirmed 100 %}%)
               </span>
             </td>
-            <td class="has-text-grey-light">{{ region.deaths|intcomma|intword }}</td>
+            <td class="has-text-grey-light">{{ region.deaths|intcomma|intword }}
+              <span class="has-text-weight-light">({% widthratio region.deaths region.confirmed 100 %}%)
+              </span>
+            </td>
           </tr>
         {% endfor %}
         </tbody>
