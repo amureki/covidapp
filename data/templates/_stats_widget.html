@@ -6,7 +6,7 @@
       <div>
         <p class="heading">Confirmed</p>
         <p class="title">{{ summary.confirmed|intcomma|intword }}</p>
-        <p>+{{ summary.get_increase_data.confirmed|intcomma|intword }}</p>
+        <u title="Today's growth">+{{ summary.get_increase_data.confirmed|intcomma|intword }}</u>
       </div>
     </div>
     <div class="level-item has-text-centered">
@@ -17,7 +17,7 @@
               ({% widthratio summary.recovered summary.confirmed 100 %}%)
             </span>
         </p>
-        <p>+{{ summary.get_increase_data.recovered|intcomma|intword }}</p>
+        <u title="Today's growth">+{{ summary.get_increase_data.recovered|intcomma|intword }}</u>
       </div>
     </div>
     <div class="level-item has-text-centered">
@@ -29,7 +29,7 @@
               ({% widthratio summary.deaths summary.confirmed 100 %}%)
             </span>
         </p>
-        <p class="has-text-grey-light">+{{ summary.get_increase_data.deaths|intcomma|intword }}</p>
+        <u title="Today's growth" class="has-text-grey-light">+{{ summary.get_increase_data.deaths|intcomma|intword }}</u>
       </div>
     </div>
   </nav>
