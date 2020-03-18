@@ -58,18 +58,13 @@ class RegionRetrieveMixin:
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         region_slug = self.kwargs.get("region").lower()
-        region_data = next(
-            (
-                item
-                for item in instance.regions_data
-                if item["region_slug"] == region_slug
-            ),
-            None,
-        )
-        if not region_data:
+
+        try:
+            region = Region(slug=region_slug, summary=instance)
+        except ValueError:
             raise Http404
 
-        serializer = self.get_serializer(Region(region_data))
+        serializer = self.get_serializer(region)
         return Response(serializer.data)
 
 

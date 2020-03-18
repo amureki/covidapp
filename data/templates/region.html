@@ -1,47 +1,10 @@
 {% extends 'base.html' %}
-{% load humanize %}
 
 {% block content %}
   <h1 class="title has-text-centered">{{ region.region }} statistics</h1>
-  {% if region %}
-    <nav class="level">
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">Confirmed</p>
-          <p class="title">{{ region.confirmed|intcomma|intword }}</p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">Recovered</p>
-          <p class="title">{{ region.recovered|intcomma|intword }}
-            <span class="has-text-grey-dark">
-              ({% widthratio region.recovered region.confirmed 100 %}%)
-            </span>
-          </p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">Deaths</p>
-          <p class="title has-text-grey-light">
-            {{ region.deaths|intcomma|intword }}
-            <span class="has-text-grey-light">
-              ({% widthratio region.deaths region.confirmed 100 %}%)
-            </span>
-          </p>
-        </div>
-      </div>
-    </nav>
-    <progress class="progress is-success" value="{{ region.recovered }}"
-              max="{{ region.confirmed }}">{% widthratio region.recovered region.confirmed 100 %}%
-    </progress>
 
-  {% else %}
-    <div class="content has-text-centered">
-      <p>No data to display.</p>
-    </div>
-  {% endif %}
+  {% include '_stats_widget.html' with summary=region %}
+
   <div class="content has-text-centered">
     <a class="button is-link" href="{% url 'regions' %}">Back</a>
   </div>

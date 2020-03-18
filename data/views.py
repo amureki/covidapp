@@ -42,10 +42,8 @@ class RegionDetailView(LatestSummaryMixin, DetailView):
     def get_object(self, queryset=None):
         slug = self.kwargs.get("region").lower()
         summary = self.get_summary()
-        region_data = next(
-            (item for item in summary.regions_data if item["region_slug"] == slug),
-            None,
-        )
-        if not region_data:
+        try:
+            region = Region(slug=slug, summary=summary)
+            return region
+        except ValueError:
             return
-        return Region(region_data)

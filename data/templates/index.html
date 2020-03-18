@@ -1,46 +1,7 @@
 {% extends 'base.html' %}
-{% load humanize %}
 
 {% block content %}
   <h1 class="title has-text-centered">COVID-19 cases</h1>
-  {% if summary %}
-    <nav class="level">
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">Confirmed</p>
-          <p class="title">{{ summary.confirmed|intcomma|intword }}</p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">Recovered</p>
-          <p class="title">{{ summary.recovered|intcomma|intword }}
-            <span class="has-text-grey-dark">
-              ({% widthratio summary.recovered summary.confirmed 100 %}%)
-            </span>
-          </p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">Deaths</p>
-          <p class="title has-text-grey-light">
-            {{ summary.deaths|intcomma|intword }}
-            <span class="has-text-grey-light">
-              ({% widthratio summary.deaths summary.confirmed 100 %}%)
-            </span>
-          </p>
-        </div>
-      </div>
-    </nav>
-    <progress class="progress is-success" value="{{ summary.recovered }}"
-              max="{{ summary.confirmed }}">{% widthratio summary.recovered summary.confirmed 100 %}%
-    </progress>
 
-
-  {% else %}
-    <div class="content has-text-centered">
-      <p>No data to display.</p>
-    </div>
-  {% endif %}
+  {% include '_stats_widget.html' %}
 {% endblock content %}

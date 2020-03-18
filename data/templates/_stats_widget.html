@@ -1,0 +1,43 @@
+{% load humanize %}
+
+{% if summary %}
+  <nav class="level">
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">Confirmed</p>
+        <p class="title">{{ summary.confirmed|intcomma|intword }}</p>
+        <p>+{{ summary.get_increase_data.confirmed|intcomma|intword }}</p>
+      </div>
+    </div>
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">Recovered</p>
+        <p class="title">{{ summary.recovered|intcomma|intword }}
+          <span class="has-text-grey-dark">
+              ({% widthratio summary.recovered summary.confirmed 100 %}%)
+            </span>
+        </p>
+        <p>+{{ summary.get_increase_data.recovered|intcomma|intword }}</p>
+      </div>
+    </div>
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">Deaths</p>
+        <p class="title has-text-grey-light">
+          {{ summary.deaths|intcomma|intword }}
+          <span class="has-text-grey-light">
+              ({% widthratio summary.deaths summary.confirmed 100 %}%)
+            </span>
+        </p>
+        <p class="has-text-grey-light">+{{ summary.get_increase_data.deaths|intcomma|intword }}</p>
+      </div>
+    </div>
+  </nav>
+  <progress class="progress is-success" value="{{ summary.recovered }}"
+            max="{{ summary.confirmed }}">{% widthratio summary.recovered summary.confirmed 100 %}%
+  </progress>
+{% else %}
+  <div class="content has-text-centered">
+    <p>No data to display.</p>
+  </div>
+{% endif %}

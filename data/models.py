@@ -60,11 +60,32 @@ class Summary(TimeStampedModel):
         }
 
     def get_regions_data(self):
-        return [Region(data) for data in self.regions_data]
+        return [
+            Region(slug=data["region_slug"], summary=self) for data in self.regions_data
+        ]
+
+    def get_increase_data(self):
+        """Compares current summary data with yesterday's last summary."""
+        date_start = now().replace(hour=0, minute=0)
+        previous_day_summary = Summary.objects.filter(
+            created__lt=date_start, is_latest_for_day=True
+        ).first()
+        return {
+            "confirmed": self.confirmed - previous_day_summary.confirmed,
+            "deaths": self.deaths - previous_day_summary.deaths,
+            "recovered": self.recovered - previous_day_summary.recovered,
+        }
 
 
 class Region:
-    def __init__(self, data):
+    def __init__(self, slug: str, summary: Summary):
+        data = next(
+            (item for item in summary.regions_data if item["region_slug"] == slug),
+            None,
+        )
+        if not data:
+            raise ValueError("Region data not found")
+
         self.region = data.get("region")
         self.region_slug = data.get("region_slug")
         self.lat = data.get("lat")
@@ -73,3 +94,18 @@ class Region:
         self.deaths = data.get("deaths")
         self.recovered = data.get("recovered")
         self.updated = datetime.utcfromtimestamp(data.get("updated"))
+
+    def get_increase_data(self):
+        """Compares current summary data with yesterday's last summary."""
+        date_start = now().replace(hour=0, minute=0)
+        previous_day_summary = Summary.objects.filter(
+            created__lt=date_start, is_latest_for_day=True
+        ).first()
+        previous_day_region_data = Region(
+            slug=self.region_slug, summary=previous_day_summary
+        )
+        return {
+            "confirmed": self.confirmed - previous_day_region_data.confirmed,
+            "deaths": self.deaths - previous_day_region_data.deaths,
+            "recovered": self.recovered - previous_day_region_data.recovered,
+        }
