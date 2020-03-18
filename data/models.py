@@ -94,6 +94,7 @@ class Region:
         self.deaths = data.get("deaths")
         self.recovered = data.get("recovered")
         self.updated = datetime.utcfromtimestamp(data.get("updated"))
+        self.created = summary.created
 
     def get_increase_data(self):
         """Compares current summary data with yesterday's last summary."""

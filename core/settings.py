@@ -135,6 +135,7 @@ class Common(Configuration):
 
 class Development(Common):
     DEBUG = True
+    INTERNAL_IPS = ("127.0.0.1",)
     SECRET_KEY = "secret_key"
 
     REST_FRAMEWORK = {
