@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load data_extras %}
 
 {% block content %}
   <h1 class="title has-text-centered">Region statistics</h1>
@@ -21,11 +22,13 @@
             <th scope="row"><a href="{% url 'region' region.region_slug %}">{{ region.region }}</a></th>
             <td>{{ region.confirmed|intcomma|intword }}</td>
             <td>{{ region.recovered|intcomma|intword }}
-              <span class="has-text-weight-light">({% widthratio region.recovered region.confirmed 100 %}%)
+              <span class="has-text-weight-light">
+                ({{ region.recovered|as_percentage_of:region.confirmed }})
               </span>
             </td>
             <td class="has-text-grey-light">{{ region.deaths|intcomma|intword }}
-              <span class="has-text-weight-light">({% widthratio region.deaths region.confirmed 100 %}%)
+              <span class="has-text-weight-light">
+                ({{ region.deaths|as_percentage_of:region.confirmed }})
               </span>
             </td>
           </tr>
