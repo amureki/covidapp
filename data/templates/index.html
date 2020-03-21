@@ -5,13 +5,4 @@
 
   {% include '_stats_widget.html' %}
 
-  {% if timeline %}
-    {% include 'chart_html.html' %}
-  {% endif %}
 {% endblock content %}
-
-{% block extrafooter %}
-  {% if timeline %}
-    {% include 'chart_javascript.html' %}
-  {% endif %}
-{% endblock extrafooter %}

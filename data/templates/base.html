@@ -109,6 +109,9 @@
 </footer>
 </body>
 <script src="{% static "js/Chart.min.js" %}"></script>
+{% if timeline %}
+  {% include 'chart_javascript.html' %}
+{% endif %}
 {% block extrafooter %}
 {% endblock extrafooter %}
 </html>
