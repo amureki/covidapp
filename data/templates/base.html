@@ -19,13 +19,17 @@
       text-decoration: none;
     }
 
+    .section {
+      padding-bottom: 3rem;
+    }
+
     .footer {
       bottom: 0;
       left: 0;
       position: fixed;
       right: 0;
       z-index: 30;
-      padding: 0.2rem 1.5rem 1rem
+      padding: 0.5rem 1.5rem 0.5rem
     }
   </style>
   <style>
@@ -99,10 +103,9 @@
       <p>
         Based on <a href="https://systems.jhu.edu/research/public-health/ncov/" rel="noopener" target="_blank">Johns
         Hopkins CSSE </a>data.
-        {% if summary %}Last update: {{ summary.created }} {% endif %}
+        {% if summary %}Last updated at <span class="is-italic">{{ summary.created }}</span>{% endif %}
         <br/>
-        Check out <a href="https://docs.google.com/document/d/1vumYWoiV7NlVoc27rMQvmVkVu5cOAbnaW_RKkq2RMaQ/edit">how
-        to prepare for COVID-19</a>.
+        <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public">WHO's advice on protective measures.</a>
       </p>
     </div>
   </div>
