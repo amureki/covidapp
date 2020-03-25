@@ -78,7 +78,7 @@ class Command(BaseCommand):
                 if region == "UK":
                     item["attributes"]["Country_Region"] = "United Kingdom"
                     to_update = True
-                if region == "Others":
+                if region in ["Others", "Diamond Princess"]:
                     item["attributes"]["Country_Region"] = "Cruise Ship"
                     to_update = True
                 if region == "Czech Republic":

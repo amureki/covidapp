@@ -102,11 +102,20 @@ class Region:
         previous_day_summary = Summary.objects.filter(
             created__lt=date_start, is_latest_for_day=True
         ).first()
-        previous_day_region_data = Region(
-            slug=self.region_slug, summary=previous_day_summary
-        )
+        try:
+            previous_day_region_data = Region(
+                slug=self.region_slug, summary=previous_day_summary
+            )
+            confirmed_growth = self.confirmed - previous_day_region_data.confirmed
+            deaths_growth = self.deaths - previous_day_region_data.deaths
+            recovered_growth = self.recovered - previous_day_region_data.recovered
+        except ValueError:
+            confirmed_growth = self.confirmed
+            deaths_growth = self.deaths
+            recovered_growth = self.recovered
+
         return {
-            "confirmed": self.confirmed - previous_day_region_data.confirmed,
-            "deaths": self.deaths - previous_day_region_data.deaths,
-            "recovered": self.recovered - previous_day_region_data.recovered,
+            "confirmed": confirmed_growth,
+            "deaths": deaths_growth,
+            "recovered": recovered_growth,
         }
