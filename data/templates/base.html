@@ -103,7 +103,7 @@
       <p>
         Based on <a href="https://systems.jhu.edu/research/public-health/ncov/" rel="noopener" target="_blank">Johns
         Hopkins CSSE </a>data.
-        {% if summary %}Last updated at <span class="is-italic">{{ summary.created }}</span>{% endif %}
+        {% if summary %}Last updated at <span class="is-italic">{{ summary.created|date:"N j, Y, P e" }}</span>{% endif %}
         <br/>
         <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public">WHO's advice on protective measures.</a>
       </p>
