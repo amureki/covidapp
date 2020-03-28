@@ -6,63 +6,30 @@
     datasets: [
       {
         label: "Confirmed",
-        fill: false,
-        lineTension: 0.1,
-        backgroundColor: "rgba(225,0,0,0.4)",
-        borderColor: "black",
-        borderCapStyle: 'square',
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderColor: "black",
-        pointBackgroundColor: "white",
-        pointBorderWidth: 1,
-        pointHoverRadius: 8,
-        pointHoverBackgroundColor: "yellow",
-        pointHoverBorderColor: "brown",
-        pointHoverBorderWidth: 2,
-        pointRadius: 4,
-        pointHitRadius: 10,
         data: {{ timeline.confirmed_series|safe }},
+        fill: false,
+        borderColor: "rgb(105,105,105)",
+        backgroundColor: "rgb(105,105,105)",
+        pointHoverBackgroundColor: "rgb(255,255,255)",
+        pointRadius: 3.5,
       },
       {
         label: "Deaths",
-        fill: false,
-        lineTension: 0.1,
-        backgroundColor: "rgba(225,0,0,0.4)",
-        borderColor: "red", // The main line color
-        borderCapStyle: 'square',
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderColor: "black",
-        pointBackgroundColor: "white",
-        pointBorderWidth: 1,
-        pointHoverRadius: 8,
-        pointHoverBackgroundColor: "yellow",
-        pointHoverBorderColor: "brown",
-        pointHoverBorderWidth: 2,
-        pointRadius: 4,
-        pointHitRadius: 10,
         data: {{ timeline.deaths_series|safe }},
+        fill: false,
+        borderColor: "rgb(200,100,100)",
+        backgroundColor: "rgb(200,100,100)",
+        pointHoverBackgroundColor: "rgb(255,255,255)",
+        pointRadius: 3.5,
       },
       {
         label: "Recovered",
-        fill: false,
-        lineTension: 0.1,
-        backgroundColor: "rgba(225,0,0,0.4)",
-        borderColor: "green",
-        borderCapStyle: 'square',
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderColor: "black",
-        pointBackgroundColor: "white",
-        pointBorderWidth: 1,
-        pointHoverRadius: 8,
-        pointHoverBackgroundColor: "yellow",
-        pointHoverBorderColor: "brown",
-        pointHoverBorderWidth: 2,
-        pointRadius: 4,
-        pointHitRadius: 10,
         data: {{ timeline.recovered_series|safe }},
+        fill: false,
+        borderColor: "rgb(100,200,100)",
+        backgroundColor: "rgb(100,200,100)",
+        pointHoverBackgroundColor: "rgb(255,255,255)",
+        pointRadius: 3.5,
       }
     ]
   };
@@ -71,17 +38,32 @@
     if (n >= 1e3) return +(n / 1e3).toFixed(1) + "K";
   };
   var options = {
-    legend: {labels: {boxWidth: 20}},
+    legend: {labels: {boxWidth: 30}},
+    tooltips: {
+      mode: 'index',
+      intersect: false,
+    },
+    hover: {
+      mode: 'nearest',
+      intersect: true
+    },
     maintainAspectRatio: false,
     scales: {
-      yAxes: [{
+      y: {
+        beginAtZero: true,
+        {#type: 'logarithmic',#}
         ticks: {
-          beginAtZero: true,
+          maxTicksLimit: 8,
           callback: function(value, index, values) {
             return formatNumbers(value);
           }
         }
-      }]
+      },
+      x: {
+        ticks: {
+          maxTicksLimit: 20,
+        }
+      },
     }
   };
 
