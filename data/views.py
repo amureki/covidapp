@@ -24,11 +24,24 @@ class IndexPageView(LatestSummaryMixin, TemplateView):
             dt.strftime("%d %b")
             for dt in timeline_data.values_list("created", flat=True)
         ]
+        confirmed_series = list(timeline_data.values_list("confirmed", flat=True))
+        confirmed_diffs = [
+            max(0, y - x) for x, y in zip(confirmed_series, confirmed_series[1:])
+        ]
+        deaths_series = list(timeline_data.values_list("deaths", flat=True))
+        deaths_diffs = [max(0, y - x) for x, y in zip(deaths_series, deaths_series[1:])]
+        recovered_series = list(timeline_data.values_list("recovered", flat=True))
+        recovered_diffs = [
+            max(0, y - x) for x, y in zip(recovered_series, recovered_series[1:])
+        ]
         context["timeline"] = {
             "dates_series": dates_series,
-            "confirmed_series": list(timeline_data.values_list("confirmed", flat=True)),
-            "deaths_series": list(timeline_data.values_list("deaths", flat=True)),
-            "recovered_series": list(timeline_data.values_list("recovered", flat=True)),
+            "confirmed_series": confirmed_series,
+            "confirmed_diffs": confirmed_diffs,
+            "deaths_series": deaths_series,
+            "deaths_diffs": deaths_diffs,
+            "recovered_series": recovered_series,
+            "recovered_diffs": recovered_diffs,
         }
         return context
 
@@ -82,14 +95,24 @@ class RegionDetailView(LatestSummaryMixin, DetailView):
 
         dates_series = [ds[0].created.strftime("%d %b") for ds in data_series]
         confirmed_series = [ds[0].confirmed for ds in data_series]
+        confirmed_diffs = [
+            max(0, y - x) for x, y in zip(confirmed_series, confirmed_series[1:])
+        ]
         deaths_series = [ds[0].deaths for ds in data_series]
+        deaths_diffs = [max(0, y - x) for x, y in zip(deaths_series, deaths_series[1:])]
         recovered_series = [ds[0].recovered for ds in data_series]
+        recovered_diffs = [
+            max(0, y - x) for x, y in zip(recovered_series, recovered_series[1:])
+        ]
 
         context["timeline"] = {
             "dates_series": dates_series,
             "confirmed_series": confirmed_series,
+            "confirmed_diffs": confirmed_diffs,
             "deaths_series": deaths_series,
+            "deaths_diffs": deaths_diffs,
             "recovered_series": recovered_series,
+            "recovered_diffs": recovered_diffs,
         }
         return context
 

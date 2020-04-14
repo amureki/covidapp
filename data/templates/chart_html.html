@@ -1,3 +1,26 @@
+<div class="columns is-centered">
+  <div class="column is-two-thirds">
+    <div class="field is-horizontal">
+      <div class="field-label"></div>
+      <label class="label">Chart type: &nbsp;</label>
+      <div class="field-body">
+        <div class="field is-narrow">
+          <div class="control">
+            <label class="radio">
+              <input type="radio" name="chartType" id="chartRadioLine" onchange="updateChartType()" value="line">
+              Cases
+            </label>
+            <label class="radio">
+              <input type="radio" name="chartType" id="chartRadioBar" onchange="updateChartType()" value="bar">
+              Increase rate
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="chart-container" style="position: relative; margin: auto; height: 40vh;">
-  <canvas id="barChart"></canvas>
+  <canvas id="covidChart"></canvas>
 </div>

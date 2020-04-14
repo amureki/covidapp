@@ -1,7 +1,7 @@
 <script>
-  var canvas = document.getElementById("barChart");
-  var ctx = canvas.getContext('2d');
-  var data = {
+  const canvas = document.getElementById("covidChart");
+  const ctx = canvas.getContext('2d');
+  const casesData = {
     labels: {{ timeline.dates_series|safe }},
     datasets: [
       {
@@ -33,11 +33,46 @@
       }
     ]
   };
+  const increaseData = {
+    labels: {{ timeline.dates_series|safe }},
+    datasets: [
+      {
+        label: "Confirmed increase",
+        data: {{ timeline.confirmed_diffs|safe }},
+        fill: false,
+        borderColor: "rgb(105,105,105)",
+        backgroundColor: "rgb(105,105,105)",
+        pointHoverBackgroundColor: "rgb(255,255,255)",
+        pointRadius: 3.5,
+      },
+      {
+        label: "Deaths increase",
+        data: {{ timeline.deaths_diffs|safe }},
+        hidden: true,
+        fill: false,
+        borderColor: "rgb(200,100,100)",
+        backgroundColor: "rgb(200,100,100)",
+        pointHoverBackgroundColor: "rgb(255,255,255)",
+        pointRadius: 3.5,
+      },
+      {
+        label: "Recovered increase",
+        data: {{ timeline.recovered_diffs|safe }},
+        hidden: true,
+        fill: false,
+        borderColor: "rgb(100,200,100)",
+        backgroundColor: "rgb(100,200,100)",
+        pointHoverBackgroundColor: "rgb(255,255,255)",
+        pointRadius: 3.5,
+      }
+    ]
+  };
   const formatNumbers = n => {
     if (n < 1e3) return n;
+    if (n >= 1e6) return +(n / 1e6).toFixed(1) + "M";
     if (n >= 1e3) return +(n / 1e3).toFixed(1) + "K";
   };
-  var options = {
+  let options = {
     legend: {labels: {boxWidth: 30}},
     tooltips: {
       mode: 'index',
@@ -61,15 +96,41 @@
       },
       x: {
         ticks: {
-          maxTicksLimit: 20,
+          maxTicksLimit: 16,
         }
       },
     }
   };
 
-  var BarChart = new Chart(ctx, {
-    type: 'line',
-    data: data,
+  let currentChartType = localStorage.getItem('chartType') || 'line';
+  if (currentChartType === "line") {
+    document.getElementById('chartRadioLine').checked = true;
+  } else if (currentChartType === "bar") {
+    document.getElementById('chartRadioBar').checked = true;
+  }
+
+  let currentChartData = (currentChartType === "line") ? casesData : (currentChartType === "bar") ? increaseData : casesData;
+
+  let covidChart = new Chart(ctx, {
+    type: currentChartType,
+    data: currentChartData,
     options: options
   });
+
+  // Function runs on chart type select update
+  function updateChartType() {
+    // Since you can't update chart type directly in Charts JS you must destroy original chart and rebuild
+    let chartType = document.querySelector('input[name="chartType"]:checked').value;
+
+    let chartData = (chartType === "line") ? casesData : (chartType === "bar") ? increaseData : casesData;
+
+    localStorage.setItem('chartType', chartType);
+
+    covidChart.destroy();
+    covidChart = new Chart(ctx, {
+      type: chartType,
+      data: chartData,
+      options: options
+    });
+  };
 </script>
