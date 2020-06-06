@@ -20,8 +20,8 @@
         {% for region in regions %}
           <tr>
             <th scope="row"><a href="{% url 'region' region.region_slug %}">{{ region.region }}</a></th>
-            <td>{{ region.confirmed|intcomma|intword }}</td>
-            <td>{{ region.recovered|intcomma|intword }}
+            <td>{{ region.confirmed|default_if_none:"No data"|intcomma|intword }}</td>
+            <td>{{ region.recovered|default_if_none:"No data"|intcomma|intword }}
               <span class="has-text-weight-light">
                 ({{ region.recovered|as_percentage_of:region.confirmed }})
               </span>
