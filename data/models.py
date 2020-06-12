@@ -90,9 +90,9 @@ class Region:
         self.region_slug = data.get("region_slug")
         self.lat = data.get("lat")
         self.long = data.get("long")
-        self.confirmed = data.get("confirmed")
-        self.deaths = data.get("deaths")
-        self.recovered = data.get("recovered")
+        self.confirmed = data.get("confirmed") or 0
+        self.deaths = data.get("deaths") or 0
+        self.recovered = data.get("recovered") or 0
         self.updated = datetime.utcfromtimestamp(data.get("updated"))
         self.created = summary.created
 
