@@ -37,7 +37,7 @@
     labels: {{ timeline.dates_series|safe }},
     datasets: [
       {
-        label: "Confirmed increase",
+        label: "Confirmed",
         data: {{ timeline.confirmed_diffs|safe }},
         fill: false,
         borderColor: "rgb(105,105,105)",
@@ -46,7 +46,7 @@
         pointRadius: 3.5,
       },
       {
-        label: "Deaths increase",
+        label: "Deaths",
         data: {{ timeline.deaths_diffs|safe }},
         hidden: true,
         fill: false,
@@ -56,7 +56,7 @@
         pointRadius: 3.5,
       },
       {
-        label: "Recovered increase",
+        label: "Recovered",
         data: {{ timeline.recovered_diffs|safe }},
         hidden: true,
         fill: false,
